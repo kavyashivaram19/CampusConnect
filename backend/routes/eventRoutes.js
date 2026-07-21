@@ -1,58 +1,123 @@
+// =======================================================
+// SECTION 1 : IMPORTS
+// =======================================================
+
 const express = require("express");
 const Event = require("../models/Event");
+const upload = require("../middleware/upload");
 
 const router = express.Router();
 
+// =======================================================
+// SECTION 2 : CREATE EVENT
+// =======================================================
 
-// Create Event
+router.post(
+  "/create",
+  upload.single("image"),
+  async (req, res) => {
 
-router.post("/create", async(req,res)=>{
+    try {
 
-    try{
+      const event = new Event({
 
-        const event = new Event(req.body);
+        title: req.body.title,
+        description: req.body.description,
+        category: req.body.category,
+        date: req.body.date,
+        venue: req.body.venue,
 
-        await event.save();
+        image: req.file
+          ? req.file.filename
+          : ""
 
+      });
 
-        res.status(201).json({
-            message:"Event created successfully",
-            event
-        });
+      await event.save();
+
+      res.status(201).json({
+
+        message: "Event created successfully",
+        event
+
+      });
 
     }
-    catch(error){
+    catch (error) {
 
-        res.status(500).json({
-            message:error.message
-        });
+      res.status(500).json({
+
+        message: error.message
+
+      });
 
     }
+
+  }
+);
+
+// =======================================================
+// SECTION 3 : GET ALL EVENTS
+// =======================================================
+
+router.get("/", async (req, res) => {
+
+  try {
+
+    const events = await Event.find();
+
+    res.json(events);
+
+  }
+  catch (error) {
+
+    res.status(500).json({
+
+      message: error.message
+
+    });
+
+  }
 
 });
 
+// =======================================================
+// SECTION 4 : GET SINGLE EVENT
+// =======================================================
 
+router.get("/:id", async (req, res) => {
 
-// Get All Events
+  try {
 
-router.get("/", async(req,res)=>{
+    const event = await Event.findById(req.params.id);
 
-    try{
+    if (!event) {
 
-        const events = await Event.find();
+      return res.status(404).json({
 
-        res.json(events);
+        message: "Event not found"
+
+      });
 
     }
-    catch(error){
 
-        res.status(500).json({
-            message:error.message
-        });
+    res.json(event);
 
-    }
+  }
+  catch (error) {
+
+    res.status(500).json({
+
+      message: error.message
+
+    });
+
+  }
 
 });
 
+// =======================================================
+// SECTION 5 : EXPORT
+// =======================================================
 
 module.exports = router;

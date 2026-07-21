@@ -52,6 +52,54 @@ router.post("/register", async(req,res)=>{
 
 });
 
+// =======================================================
+// GET USER REGISTRATIONS
+// =======================================================
 
+router.get("/user/:userId", async (req, res) => {
 
+    try {
+
+        const registrations = await Registration.find({
+            userId: req.params.userId
+        }).populate("eventId");
+
+        res.json(registrations);
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+});
+// =======================================================
+// GET DASHBOARD STATS
+// =======================================================
+
+router.get("/stats/:userId", async (req, res) => {
+
+  try {
+
+    const { userId } = req.params;
+
+    const registeredEvents = await Registration.countDocuments({
+      userId,
+    });
+
+    res.json({
+      registeredEvents,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+
+});
 module.exports = router;

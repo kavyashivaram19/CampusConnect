@@ -3,8 +3,8 @@
 // =======================================================
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getAllEvents } from "../services/eventService";
+import EventCard from "../components/EventCard";
 
 // =======================================================
 // SECTION 2 : COMPONENT
@@ -125,64 +125,12 @@ function Events() {
 
           ) : (
 
-            filteredEvents.map((event) => (
-
-              /* ===================================================
-                 SECTION 11 : EVENT CARD
-              =================================================== */
-
-              <Link
-                key={event._id}
-                to={`/events/${event._id}`}
-              >
-
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
-
-                  {/* Event Image */}
-
-                  <img
-                    src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
-                    alt="Event"
-                    className="h-48 w-full object-cover"
-                  />
-
-                  {/* Event Details */}
-
-                  <div className="p-6">
-
-                    <h2 className="text-2xl font-bold">
-                      {event.title}
-                    </h2>
-
-                    <p className="text-gray-600 mt-3">
-                      {event.description}
-                    </p>
-
-                    <div className="mt-5 space-y-2 text-gray-700">
-
-                      <p>📅 {event.date}</p>
-
-                      <p>📍 {event.venue}</p>
-
-                      <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                        {event.category}
-                      </span>
-
-                    </div>
-
-                    {/* Register Button */}
-
-                    <button className="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition">
-                      Register Now
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </Link>
-
-            ))
+           filteredEvents.map((event) => (
+    <EventCard
+        key={event._id}
+        event={event}
+    />
+      )) 
 
           )}
 

@@ -20,6 +20,7 @@ export async function getEventById(id) {
 }
 
 export async function registerForEvent(userId, eventId) {
+
   const response = await fetch(
     "http://localhost:5000/api/registrations/register",
     {
@@ -31,9 +32,47 @@ export async function registerForEvent(userId, eventId) {
     }
   );
 
+  const data = await response.json();
+
   if (!response.ok) {
-    throw new Error("Registration failed");
+    throw new Error(data.message);
+  }
+
+  return data;
+
+}
+
+// =======================================================
+// GET MY REGISTRATIONS
+// =======================================================
+
+export async function getMyRegistrations(userId) {
+
+  const response = await fetch(
+    `http://localhost:5000/api/registrations/user/${userId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch registrations");
   }
 
   return response.json();
+
+}
+// =======================================================
+// GET DASHBOARD STATS
+// =======================================================
+
+export async function getDashboardStats(userId) {
+
+  const response = await fetch(
+    `http://localhost:5000/api/registrations/stats/${userId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch dashboard stats");
+  }
+
+  return response.json();
+
 }
