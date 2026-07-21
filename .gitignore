@@ -1,0 +1,24 @@
+# Node Modules
+backend/node_modules/
+frontend/node_modules/
+
+# Environment
+backend/.env
+frontend/.env
+
+# Uploads
+backend/uploads/
+
+# Build
+frontend/dist/
+frontend/build/
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
