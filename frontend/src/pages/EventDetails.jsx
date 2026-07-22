@@ -3,7 +3,7 @@
 // =======================================================
 
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   getEventById,
   registerForEvent,
@@ -19,13 +19,14 @@ function EventDetails() {
   // =======================================================
   // SECTION 3 : STATES
   // =======================================================
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState(false);
-
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+  const [eventFull, setEventFull] = useState(false);
   // =======================================================
   // SECTION 4 : FETCH EVENT
   // =======================================================
@@ -39,6 +40,45 @@ function EventDetails() {
         const data = await getEventById(id);
 
         setEvent(data);
+        const user = JSON.parse(localStorage.getItem("user"));
+
+if (user) {
+
+  const response = await fetch(
+
+    `http://localhost:5000/api/registrations/user/${user.id}`
+
+  );
+
+  const registrations = await response.json();
+
+  const registered = registrations.some(
+
+    (r) => r.eventId?._id === data._id
+
+  );
+
+  setAlreadyRegistered(registered);
+
+}
+
+const response = await fetch(
+
+  `http://localhost:5000/api/registrations/participants/${data._id}`
+
+);
+
+const participants = await response.json();
+
+if (
+
+  participants.length >= data.maxParticipants
+
+) {
+
+  setEventFull(true);
+
+}
 
       } catch (error) {
 
@@ -60,47 +100,79 @@ function EventDetails() {
   // SECTION 5 : REGISTER EVENT
   // =======================================================
 
-  async function handleRegister() {
+  function handleRegister() {
 
-    try {
+  if (!user) {
 
-      setRegistering(true);
+    toast.error("Please login first");
 
-      // Get logged-in user
-      const user = JSON.parse(localStorage.getItem("user"));
+    return;
 
-if (!user) {
+  }
 
-  alert("Please login first.");
+  navigate("/payment", {
 
-  return;
+    state: {
+
+      event,
+
+      user
+
+    }
+
+  });
 
 }
 
-      if (!user) {
+  async function handleDelete() {
 
-        alert("Please login first.");
+  const confirmDelete = window.confirm(
 
-        return;
+    "Delete this event?"
+
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+
+    const response = await fetch(
+
+      `http://localhost:5000/api/events/${id}`,
+
+      {
+
+        method: "DELETE"
 
       }
 
-      await registerForEvent(user.id, event._id);
+    );
 
-      toast.success("Successfully Registered!");
+    const data = await response.json();
 
-    } catch (error) {
+    if (response.ok) {
 
-      toast.error(error.message);
+      toast.success(data.message);
 
-    } finally {
+      navigate("/events");
 
-      setRegistering(false);
+    }
+
+    else {
+
+      toast.error(data.message);
 
     }
 
   }
 
+  catch {
+
+    toast.error("Delete Failed");
+
+  }
+
+}
   // =======================================================
   // SECTION 6 : LOADING
   // =======================================================
@@ -139,7 +211,7 @@ if (!user) {
 
   return (
 
-    <div className="min-h-screen bg-gray-100 py-10">
+    <div className="min-h-screen bg-pink-50 py-10">
 
       <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
 
@@ -221,16 +293,66 @@ if (!user) {
           {/* ===================================================
               SECTION 12 : REGISTER BUTTON
           =================================================== */}
+          {user?.role === "admin" && (
 
-          <button
-            onClick={handleRegister}
-            disabled={registering}
-            className="mt-10 w-full bg-blue-600 text-white py-4 rounded-xl text-lg hover:bg-blue-700 transition disabled:bg-gray-400"
-          >
+<div className="flex gap-4 mt-10">
 
-            {registering ? "Registering..." : "Register Now"}
+<Link
 
-          </button>
+to={`/edit-event/${event._id}`}
+
+className="flex-1 bg-yellow-500 text-white py-4 rounded-xl text-center hover:bg-yellow-600"
+
+>
+
+✏ Edit
+
+</Link>
+
+<button
+
+onClick={handleDelete}
+
+className="flex-1 bg-red-600 text-white rounded-xl hover:bg-red-700"
+
+>
+
+🗑 Delete
+
+</button>
+
+</div>
+
+)}
+          {alreadyRegistered ? (
+
+  <button
+    disabled
+    className="mt-10 w-full bg-green-600 text-white py-4 rounded-xl text-lg"
+  >
+    ✅ Already Registered
+  </button>
+
+) : eventFull ? (
+
+  <button
+    disabled
+    className="mt-10 w-full bg-red-600 text-white py-4 rounded-xl text-lg"
+  >
+    ❌ Event Full
+  </button>
+
+) : (
+
+  <button
+    onClick={handleRegister}
+    disabled={registering}
+    className="mt-10 w-full bg-pink-600 text-white py-4 rounded-xl text-lg hover:bg-pink-700 transition"
+  >
+    {registering ? "Registering..." : "Register Now"}
+  </button>
+
+)}
 
         </div>
 

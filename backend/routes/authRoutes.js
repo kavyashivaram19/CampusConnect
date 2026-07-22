@@ -10,7 +10,12 @@ router.post("/register", async(req,res)=>{
 
     try{
 
-        const {name,email,password}=req.body;
+        const {
+  name,
+  email,
+  password,
+  role
+} = req.body;
 
 
         const existingUser = await User.findOne({email});
@@ -27,11 +32,18 @@ router.post("/register", async(req,res)=>{
 
         const user = new User({
 
-            name,
-            email,
-            password:hashedPassword
+  name,
 
-        });
+  email,
+
+  password: hashedPassword,
+
+  role:
+    role === "coordinator"
+      ? "coordinator"
+      : "student"
+
+});
 
 
         await user.save();

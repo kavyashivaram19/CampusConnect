@@ -19,10 +19,13 @@ function Register() {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: ""
-  });
+
+    name:"",
+    email:"",
+    password:"",
+    role:"student"
+
+});
 
   // =======================================================
   // SECTION 4 : HANDLE INPUT
@@ -134,7 +137,26 @@ function Register() {
             className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
+<select
+    name="role"
+    value={user.role}
+    onChange={handleChange}
+    className="w-full border p-3 rounded-lg"
+>
 
+    <option value="student">
+
+        Student
+
+    </option>
+
+    <option value="coordinator">
+
+        Event Coordinator
+
+    </option>
+
+</select>
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"

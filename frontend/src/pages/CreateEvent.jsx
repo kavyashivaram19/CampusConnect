@@ -16,13 +16,15 @@ function CreateEvent() {
   // =======================================================
 
   const [event, setEvent] = useState({
-    title: "",
-    description: "",
-    category: "",
-    date: "",
-    venue: "",
-    image: null
-  });
+  title: "",
+  description: "",
+  category: "",
+  date: "",
+  venue: "",
+  registrationFee: "",
+  maxParticipants: "",
+  image: null
+});
 
   // =======================================================
   // SECTION 4 : HANDLE INPUT CHANGE
@@ -52,41 +54,49 @@ function CreateEvent() {
   // SECTION 5 : HANDLE SUBMIT
   // =======================================================
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    const formData = new FormData();
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    formData.append("title", event.title);
-    formData.append("description", event.description);
-    formData.append("category", event.category);
-    formData.append("date", event.date);
-    formData.append("venue", event.venue);
+  const formData = new FormData();
 
-    if (event.image) {
+  formData.append("title", event.title);
+  formData.append("description", event.description);
+  formData.append("category", event.category);
+  formData.append("date", event.date);
+  formData.append("venue", event.venue);
 
-      formData.append("image", event.image);
+  formData.append("registrationFee", event.registrationFee);
+  formData.append("maxParticipants", event.maxParticipants);
 
+
+  // Automatically save coordinator details
+  formData.append("createdBy", user.id);
+  formData.append("coordinatorName", user.name);
+  formData.append("coordinatorEmail", user.email);
+
+  if (event.image) {
+    formData.append("image", event.image);
+  }
+
+  const response = await fetch(
+    "http://localhost:5000/api/events/create",
+    {
+      method: "POST",
+      body: formData,
     }
+  );
 
-    const response = await fetch(
-      "http://localhost:5000/api/events/create",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+  const data = await response.json();
 
-    const data = await response.json();
-
-    if (response.ok) {
-  toast.success(data.message);
-} else {
-  toast.error(data.message);
-}
-
-  };
+  if (response.ok) {
+    toast.success(data.message);
+  } else {
+    toast.error(data.message);
+  }
+};
 
   // =======================================================
   // SECTION 6 : UI
@@ -148,6 +158,51 @@ function CreateEvent() {
             className="w-full border p-3 rounded-lg"
             required
           />
+<input
+    type="number"
+    name="fee"
+    placeholder="Registration Fee (₹)"
+    value={event.fee}
+    onChange={handleChange}
+    className="w-full border p-3 rounded-lg"
+    required
+/>
+
+<input
+  type="number"
+  name="registrationFee"
+  placeholder="Registration Fee (₹)"
+  onChange={handleChange}
+  className="w-full border p-3 rounded-lg"
+  required
+/>
+
+<input
+  type="number"
+  name="maxParticipants"
+  placeholder="Maximum Participants"
+  onChange={handleChange}
+  className="w-full border p-3 rounded-lg"
+  required
+/>
+
+<input
+  name="coordinatorName"
+  placeholder="Coordinator Name"
+  onChange={handleChange}
+  className="w-full border p-3 rounded-lg"
+  required
+/>
+
+<input
+  type="email"
+  name="coordinatorEmail"
+  placeholder="Coordinator Email"
+  onChange={handleChange}
+  className="w-full border p-3 rounded-lg"
+  required
+/>
+
 
           {/* ===================================================
               SECTION 7 : IMAGE UPLOAD

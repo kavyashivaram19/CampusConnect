@@ -76,3 +76,15 @@ export async function getDashboardStats(userId) {
   return response.json();
 
 }
+export async function getCoordinatorDashboard(coordinatorId) {
+
+  const response = await fetch(
+    `http://localhost:5000/api/registrations/coordinator/${coordinatorId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to load dashboard");
+  }
+
+  return await response.json();
+}

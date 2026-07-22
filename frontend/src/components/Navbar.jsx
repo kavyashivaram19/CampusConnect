@@ -78,14 +78,18 @@ function Navbar() {
 
           {token && (
 
-            <Link
-              to="/dashboard"
-              className="hover:text-blue-600 transition"
-            >
-              Dashboard
-            </Link>
+  <Link
+    to={
+      user?.role === "coordinator" || user?.role === "admin"
+        ? "/coordinator-dashboard"
+        : "/dashboard"
+    }
+    className="hover:text-blue-600 transition"
+  >
+    Dashboard
+  </Link>
 
-          )}
+)}
 
           {token && (
 
@@ -98,7 +102,17 @@ function Navbar() {
 
           )}
 
-          {token && user?.role === "admin" && (
+          {token &&
+  (user?.role === "admin" || user?.role === "coordinator") && (
+
+    <Link
+      to="/create-event"
+      className="hover:text-blue-600 transition"
+    >
+      Create Event
+    </Link>
+
+)}
 
             <Link
               to="/create-event"
@@ -107,7 +121,7 @@ function Navbar() {
               Create Event
             </Link>
 
-          )}
+    
 
         </div>
 

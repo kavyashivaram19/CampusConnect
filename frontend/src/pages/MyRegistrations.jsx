@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { getMyRegistrations } from "../services/eventService";
+import { Link } from "react-router-dom";
 
 // =======================================================
 // SECTION 2 : COMPONENT
@@ -78,7 +79,15 @@ function MyRegistrations() {
               <p>
                 📍 {registration.eventId.venue}
               </p>
-
+              <Link
+  to="/ticket"
+  state={{
+    registration
+  }}
+  className="inline-block mt-4 bg-pink-600 text-white px-5 py-2 rounded-xl hover:bg-pink-700"
+>
+  🎟 View Ticket
+</Link>
               <span className="inline-block mt-4 bg-green-100 text-green-700 px-3 py-1 rounded-full">
                 Registered
               </span>

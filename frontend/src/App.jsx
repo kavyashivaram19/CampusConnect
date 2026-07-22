@@ -3,10 +3,8 @@
 // =======================================================
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -18,6 +16,13 @@ import CreateEvent from "./pages/CreateEvent";
 import EventDetails from "./pages/EventDetails";
 import MyRegistrations from "./pages/MyRegistrations";
 import Dashboard from "./pages/Dashboard";
+import EditEvent from "./pages/EditEvent";
+import RoleProtectedRoute from "./components/RoleProtectedRoute";
+import CoordinatorDashboard from "./pages/CoordinatorDashboard";
+import Participants from "./pages/Participants";
+import Payment from "./pages/Payment";
+import Ticket from "./pages/Ticket";
+import ScanAttendance from "./pages/ScanAttendance";
 
 // =======================================================
 // SECTION 2 : COMPONENT
@@ -72,13 +77,24 @@ function App() {
         />
 
         <Route
-          path="/create-event"
-          element={
-            <ProtectedRoute>
-              <CreateEvent />
-            </ProtectedRoute>
-          }
-        />
+  path="/create-event"
+  element={
+    <RoleProtectedRoute
+      allowedRoles={["coordinator", "admin"]}
+    >
+      <CreateEvent />
+    </RoleProtectedRoute>
+  }
+/>
+        
+        <Route
+  path="/edit-event/:id"
+  element={
+    <RoleProtectedRoute allowedRoles={["coordinator", "admin"]}>
+      <EditEvent />
+    </RoleProtectedRoute>
+  }
+/>
 
         <Route
           path="/my-registrations"
@@ -88,8 +104,51 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+  path="/coordinator-dashboard"
+  element={
+    <RoleProtectedRoute
+      allowedRoles={["coordinator","admin"]}
+    >
+      <CoordinatorDashboard />
+    </RoleProtectedRoute>
+  }
+/>
+    <Route
+  path="/participants/:eventId"
+  element={
+    <RoleProtectedRoute allowedRoles={["coordinator", "admin"]}>
+      <Participants />
+    </RoleProtectedRoute>
+  }
+/>
+<Route
+  path="/payment"
+  element={
+    <ProtectedRoute>
+      <Payment />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/ticket"
+  element={
+    <ProtectedRoute>
+      <Ticket />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/scan-attendance"
+  element={
+    <RoleProtectedRoute allowedRoles={["coordinator", "admin"]}>
+      <ScanAttendance />
+    </RoleProtectedRoute>
+  }
+/>
       </Routes>
+
+
 
       {/* Toast Notifications */}
 
