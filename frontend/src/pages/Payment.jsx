@@ -7,12 +7,10 @@ function Payment() {
 
   const location = useLocation();
 
-if (!location.state) {
+import { Navigate } from "react-router-dom";
 
-  navigate("/events");
-
-  return null;
-
+if (!registration) {
+  return <Navigate to="/events" replace />;
 }
 
 const { event, user } = location.state;
@@ -57,9 +55,7 @@ navigate("/ticket", {
 
   state: {
 
-    event,
-
-    user
+    registration: data.registration
 
   }
 
