@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Payment() {
@@ -7,9 +7,7 @@ function Payment() {
 
   const location = useLocation();
 
-import { Navigate } from "react-router-dom";
-
-if (!registration) {
+if (!location.state) {
   return <Navigate to="/events" replace />;
 }
 
