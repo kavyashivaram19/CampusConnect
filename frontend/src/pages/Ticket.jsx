@@ -15,27 +15,19 @@ function Ticket() {
 
   const location = useLocation();
 
-  if (!location.state) {
+  const registration = location.state?.registration;
 
-    navigate("/events");
-
-    return null;
-
-  }
-
-  const { registration } = location.state;
+if (!registration) {
+  navigate("/events", { replace: true });
+  return null;
+}
 
 
   const qrData = JSON.stringify({
-
-    ticketId: registration.ticketId,
-
-    event: registration.eventTitle,
-
-    student: registration.studentName,
-
-    email: registration.studentEmail
-
+  ticketId: registration?.ticketId,
+  event: registration?.eventTitle,
+  student: registration?.studentName,
+  email: registration?.studentEmail,
 });
 
   return (
