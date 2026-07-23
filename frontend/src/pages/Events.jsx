@@ -57,7 +57,7 @@ function Events() {
   // =======================================================
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10">
+    <div className="bg-gradient-to-br from-pink-50 to-blue-50 min-h-screen py-10">
 
       <div className="max-w-7xl mx-auto px-6">
 
@@ -65,13 +65,13 @@ function Events() {
             SECTION 7 : PAGE HEADER
         ======================================================= */}
 
-        <h1 className="text-5xl font-bold text-center">
-          All Events
-        </h1>
+        <h1 className="text-5xl font-extrabold text-center text-pink-600">
+  Explore Campus Events
+</h1>
 
-        <p className="text-center text-gray-600 mt-3">
-          Discover exciting events happening on campus.
-        </p>
+        <p className="text-center text-gray-500 mt-3 text-lg">
+  Register, participate and make your campus life exciting.
+</p>
 
         {/* =======================================================
             SECTION 8 : SEARCH BAR
@@ -79,7 +79,7 @@ function Events() {
 
         <input
           type="text"
-          placeholder="Search events..."
+          placeholder="🔍 Search events by title..."
           className="w-full mt-8 p-4 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

@@ -283,6 +283,69 @@ router.get("/participants/:eventId", async (req, res) => {
 
 });
 // =======================================================
+// MARK ATTENDANCE
+// =======================================================
+
+router.post("/attendance", async (req, res) => {
+
+    try {
+
+        const { ticketId } = req.body;
+
+        const registration = await Registration.findOne({
+
+            ticketId
+
+        });
+
+        if (!registration) {
+
+            return res.status(404).json({
+
+                message: "Invalid Ticket"
+
+            });
+
+        }
+
+        if (registration.attendance) {
+
+            return res.status(400).json({
+
+                message: "Attendance Already Marked"
+
+            });
+
+        }
+
+        registration.attendance = true;
+
+        registration.attendanceTime = new Date();
+
+        await registration.save();
+
+        res.json({
+
+            message: "Attendance Marked Successfully",
+
+            registration
+
+        });
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+});
+// =======================================================
 // EXPORT
 // =======================================================
 

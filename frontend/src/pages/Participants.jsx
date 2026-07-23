@@ -14,6 +14,7 @@ function Participants() {
     const { eventId } = useParams();
 
     const [participants, setParticipants] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
 
@@ -33,6 +34,28 @@ function Participants() {
 
     }, [eventId]);
 
+    // =======================================================
+    // FILTER PARTICIPANTS
+    // =======================================================
+
+    const filteredParticipants = participants.filter((student) => {
+
+        return (
+
+            student.studentName
+                .toLowerCase()
+                .includes(search.toLowerCase())
+
+            ||
+
+            student.studentEmail
+                .toLowerCase()
+                .includes(search.toLowerCase())
+
+        );
+
+    });
+
     return (
 
         <div className="min-h-screen bg-pink-50 p-10">
@@ -42,6 +65,24 @@ function Participants() {
                 Event Participants
 
             </h1>
+
+            {/* =======================================================
+                SEARCH BAR
+            ======================================================= */}
+
+            <input
+
+                type="text"
+
+                placeholder="🔍 Search by Name or Email..."
+
+                value={search}
+
+                onChange={(e) => setSearch(e.target.value)}
+
+                className="w-full md:w-96 p-3 mb-6 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+
+            />
 
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
 
@@ -65,16 +106,16 @@ function Participants() {
 
                     <tbody>
 
-                        {participants.length === 0 ? (
+                        {filteredParticipants.length === 0 ? (
 
                             <tr>
 
                                 <td
                                     colSpan="4"
-                                    className="text-center p-8"
+                                    className="text-center p-8 text-gray-500"
                                 >
 
-                                    No registrations yet.
+                                    No matching participants found.
 
                                 </td>
 
@@ -82,14 +123,14 @@ function Participants() {
 
                         ) : (
 
-                            participants.map((student) => (
+                            filteredParticipants.map((student) => (
 
                                 <tr
                                     key={student._id}
-                                    className="border-b hover:bg-pink-50"
+                                    className="border-b hover:bg-pink-50 transition"
                                 >
 
-                                    <td className="p-4">
+                                    <td className="p-4 font-medium">
 
                                         {student.studentName}
 

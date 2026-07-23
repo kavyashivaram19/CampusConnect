@@ -135,13 +135,18 @@ const handleSubmit = async (e) => {
             required
           />
 
-          <input
-            name="category"
-            placeholder="Category"
-            onChange={handleChange}
-            className="w-full border p-3 rounded-lg"
-            required
-          />
+          <select
+  name="category"
+  value={form.category}
+  onChange={handleChange}
+  className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+>
+  <option value="">Select Category</option>
+  <option value="Technical">Technical</option>
+  <option value="Workshop">Workshop</option>
+  <option value="Cultural">Cultural</option>
+  <option value="Sports">Sports</option>
+</select>
 
           <input
             type="date"

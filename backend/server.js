@@ -48,3 +48,6 @@ app.use(
 "/api/registrations",
 registrationRoutes
 );
+
+const adminRoutes = require("./routes/adminRoutes");
+app.use("/api/admin", adminRoutes);

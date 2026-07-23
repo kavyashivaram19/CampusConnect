@@ -25,8 +25,6 @@ function Ticket() {
 
   const { registration } = location.state;
 
-  const ticketId =
-    "CC-" + Date.now().toString().slice(-6);
 
   const qrData = JSON.stringify({
 
@@ -73,16 +71,12 @@ function Ticket() {
         </p>
 
         <p>
+  📅 <strong>Date:</strong> {registration.eventId?.date || "N/A"}
+</p>
 
-          📅 <strong>Date:</strong> {event.date}
-
-        </p>
-
-        <p>
-
-          📍 <strong>Venue:</strong> {event.venue}
-
-        </p>
+<p>
+  📍 <strong>Venue:</strong> {registration.eventId?.venue || "N/A"}
+</p>
 
         <p className="mt-4 font-bold text-pink-600">
 

@@ -23,6 +23,7 @@ import Participants from "./pages/Participants";
 import Payment from "./pages/Payment";
 import Ticket from "./pages/Ticket";
 import ScanAttendance from "./pages/ScanAttendance";
+import AdminDashboard from "./pages/AdminDashboard";
 
 // =======================================================
 // SECTION 2 : COMPONENT
@@ -146,6 +147,17 @@ function App() {
     </RoleProtectedRoute>
   }
 />
+
+<Route
+  path="/admin-dashboard"
+  element={
+    <RoleProtectedRoute allowedRoles={["admin"]}>
+      <AdminDashboard />
+    </RoleProtectedRoute>
+  }
+/>
+
+
       </Routes>
 
 

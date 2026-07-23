@@ -12,23 +12,17 @@ import { toast } from "react-toastify";
 
 function Register() {
 
-  // =======================================================
-  // SECTION 3 : STATES
-  // =======================================================
-
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-
-    name:"",
-    email:"",
-    password:"",
-    role:"student"
-
-});
+    name: "",
+    email: "",
+    password: "",
+    role: "student"
+  });
 
   // =======================================================
-  // SECTION 4 : HANDLE INPUT
+  // HANDLE INPUT
   // =======================================================
 
   const handleChange = (e) => {
@@ -41,7 +35,7 @@ function Register() {
   };
 
   // =======================================================
-  // SECTION 5 : HANDLE REGISTER
+  // REGISTER
   // =======================================================
 
   const handleSubmit = async (e) => {
@@ -64,22 +58,18 @@ function Register() {
       const data = await response.json();
 
       if (response.ok) {
+
         toast.success(data.message);
+
         navigate("/login");
-        } else {
+
+      } else {
+
         toast.error(data.message);
-    }
-
-      if (response.ok) {
-
-        navigate("/login");
 
       }
 
     } catch (error) {
-
-      console.error(error);
-      alert("Registration Failed");
 
       toast.error("Registration Failed");
 
@@ -88,24 +78,34 @@ function Register() {
   };
 
   // =======================================================
-  // SECTION 6 : UI
+  // UI
   // =======================================================
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-purple-100 p-6">
 
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
+      <div className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl p-10 w-full max-w-md border border-pink-100">
 
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
+        <div className="text-center">
 
-          Create Account
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
 
-        </h1>
+            Create Account ✨
+
+          </h1>
+
+          <p className="text-gray-500 mt-2">
+
+            Join CampusConnect today
+
+          </p>
+
+        </div>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-5"
+          className="space-y-5 mt-8"
         >
 
           <input
@@ -114,7 +114,7 @@ function Register() {
             placeholder="Full Name"
             value={user.name}
             onChange={handleChange}
-            className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-pink-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
 
@@ -124,7 +124,7 @@ function Register() {
             placeholder="Email Address"
             value={user.email}
             onChange={handleChange}
-            className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-pink-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
 
@@ -134,32 +134,29 @@ function Register() {
             placeholder="Password"
             value={user.password}
             onChange={handleChange}
-            className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-pink-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
-<select
-    name="role"
-    value={user.role}
-    onChange={handleChange}
-    className="w-full border p-3 rounded-lg"
->
 
-    <option value="student">
+          <select
+            name="role"
+            value={user.role}
+            onChange={handleChange}
+            className="w-full border border-pink-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="student">
+              🎓 Student
+            </option>
 
-        Student
+            <option value="coordinator">
+              👨‍💼 Event Coordinator
+            </option>
 
-    </option>
+          </select>
 
-    <option value="coordinator">
-
-        Event Coordinator
-
-    </option>
-
-</select>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:scale-105 transition duration-300 shadow-lg"
           >
 
             Register
@@ -170,13 +167,15 @@ function Register() {
 
         <p className="text-center mt-6 text-gray-600">
 
-          Already have an account?
+          Already have an account?{" "}
 
           <Link
             to="/login"
-            className="text-blue-600 font-semibold ml-2 hover:underline"
+            className="text-pink-600 font-semibold hover:underline"
           >
+
             Login
+
           </Link>
 
         </p>
@@ -188,9 +187,5 @@ function Register() {
   );
 
 }
-
-// =======================================================
-// SECTION 7 : EXPORT
-// =======================================================
 
 export default Register;

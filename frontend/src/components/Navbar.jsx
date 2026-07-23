@@ -3,6 +3,7 @@
 // =======================================================
 
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 // =======================================================
@@ -12,6 +13,7 @@ import { toast } from "react-toastify";
 function Navbar() {
 
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // =======================================================
   // SECTION 3 : GET USER
@@ -41,7 +43,7 @@ function Navbar() {
 
   return (
 
-    <nav className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
+    <nav className="bg-white/70 backdrop-blur-xl border-b border-pink-100 shadow-md sticky top-0 z-50">
 
       <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
 
@@ -51,27 +53,27 @@ function Navbar() {
 
         <Link
           to="/"
-          className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition"
+          className="text-3xl font-extrabold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent"
         >
-          CampusConnect
+          🎓 CampusConnect
         </Link>
 
         {/* ===================================================
             SECTION 7 : NAVIGATION LINKS
         =================================================== */}
 
-        <div className="flex gap-8 text-gray-700 font-medium items-center">
+        <div className="hidden md:flex gap-8 text-gray-700 font-medium items-center">
 
           <Link
             to="/"
-            className="hover:text-blue-600 transition"
+            className="hover:text-pink-600 transition"
           >
             Home
           </Link>
 
           <Link
             to="/events"
-            className="hover:text-blue-600 transition"
+            className="hover:text-pink-600 transition"
           >
             Events
           </Link>
@@ -84,9 +86,19 @@ function Navbar() {
         ? "/coordinator-dashboard"
         : "/dashboard"
     }
-    className="hover:text-blue-600 transition"
+    className="hover:text-pink-600 transition"
   >
     Dashboard
+  </Link>
+
+)}
+{token && user?.role === "admin" && (
+
+  <Link
+    to="/admin-dashboard"
+    className="hover:text-pink-600 transition"
+  >
+    Admin Dashboard
   </Link>
 
 )}
@@ -95,7 +107,7 @@ function Navbar() {
 
             <Link
               to="/my-registrations"
-              className="hover:text-blue-600 transition"
+              className="hover:text-pink-600 transition"
             >
               My Registrations
             </Link>
@@ -107,29 +119,27 @@ function Navbar() {
 
     <Link
       to="/create-event"
-      className="hover:text-blue-600 transition"
+      className="hover:text-pink-600 transition"
     >
       Create Event
     </Link>
 
-)}
-
-            <Link
-              to="/create-event"
-              className="hover:text-blue-600 transition"
-            >
-              Create Event
-            </Link>
-
-    
-
-        </div>
+)}      </div>
 
         {/* ===================================================
             SECTION 8 : RIGHT SIDE
         =================================================== */}
+{/* ===================================================
+    MOBILE MENU BUTTON
+=================================================== */}
 
-        <div className="flex items-center gap-4">
+<button
+  onClick={() => setMenuOpen(!menuOpen)}
+  className="md:hidden text-3xl"
+>
+  {menuOpen ? "✖" : "☰"}
+</button>
+        <div className="hidden md:flex items-center gap-4">
 
           {!token ? (
 
@@ -137,14 +147,14 @@ function Navbar() {
 
               <Link
                 to="/login"
-                className="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-50 transition"
+                className="px-5 py-2 rounded-xl border-2 border-pink-500 text-pink-600 hover:bg-pink-50 transition duration-300"
               >
                 Login
               </Link>
 
               <Link
                 to="/register"
-                className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:scale-105 transition duration-300 shadow-lg"
               >
                 Register
               </Link>
@@ -161,7 +171,7 @@ function Navbar() {
 
               <div className="text-right">
 
-                <p className="font-semibold text-blue-600">
+                <p className="font-semibold text-pink-600">
 
                   {user?.name}
 
@@ -193,7 +203,66 @@ function Navbar() {
         </div>
 
       </div>
+{menuOpen && (
 
+  <div className="md:hidden bg-white/95 backdrop-blur-xl shadow-xl">
+
+    <div className="flex flex-col p-5 gap-4">
+
+      <Link to="/" onClick={() => setMenuOpen(false)}>
+        Home
+      </Link>
+
+      <Link to="/events" onClick={() => setMenuOpen(false)}>
+        Events
+      </Link>
+
+      {token && (
+
+        <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
+          Dashboard
+        </Link>
+
+      )}
+
+      {token && (
+
+        <Link
+          to="/my-registrations"
+          onClick={() => setMenuOpen(false)}
+        >
+          My Registrations
+        </Link>
+
+      )}
+
+      {(user?.role === "admin" || user?.role === "coordinator") && (
+
+        <Link
+          to="/create-event"
+          onClick={() => setMenuOpen(false)}
+        >
+          Create Event
+        </Link>
+
+      )}
+
+      {token && (
+
+        <button
+          onClick={handleLogout}
+          className="bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 rounded-lg"
+        >
+          Logout
+        </button>
+
+      )}
+
+    </div>
+
+  </div>
+
+)}
     </nav>
 
   );

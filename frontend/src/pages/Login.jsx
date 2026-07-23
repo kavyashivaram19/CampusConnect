@@ -3,7 +3,7 @@
 // =======================================================
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 // =======================================================
@@ -11,10 +11,6 @@ import { toast } from "react-toastify";
 // =======================================================
 
 function Login() {
-
-  // =======================================================
-  // SECTION 3 : STATES
-  // =======================================================
 
   const navigate = useNavigate();
 
@@ -24,20 +20,18 @@ function Login() {
   });
 
   // =======================================================
-  // SECTION 4 : HANDLE INPUT CHANGE
+  // HANDLE INPUT
   // =======================================================
 
   const handleChange = (e) => {
-
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
-
   };
 
   // =======================================================
-  // SECTION 5 : HANDLE LOGIN
+  // LOGIN
   // =======================================================
 
   const handleSubmit = async (e) => {
@@ -61,10 +55,8 @@ function Login() {
 
       if (data.token) {
 
-        // Save JWT Token
         localStorage.setItem("token", data.token);
 
-        // Save Logged In User
         localStorage.setItem(
           "user",
           JSON.stringify(data.user)
@@ -82,7 +74,6 @@ function Login() {
 
     } catch (error) {
 
-      console.error(error);
       toast.error("Something went wrong.");
 
     }
@@ -90,22 +81,34 @@ function Login() {
   };
 
   // =======================================================
-  // SECTION 6 : UI
+  // UI
   // =======================================================
 
   return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 via-white to-purple-100 p-6">
 
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+      <div className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl p-10 w-full max-w-md border border-pink-100">
 
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
-          Login
-        </h1>
+        <div className="text-center">
+
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+
+            Welcome Back 👋
+
+          </h1>
+
+          <p className="text-gray-500 mt-2">
+
+            Login to your CampusConnect account
+
+          </p>
+
+        </div>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-5"
+          className="space-y-5 mt-8"
         >
 
           <input
@@ -114,7 +117,7 @@ function Login() {
             placeholder="Enter Email"
             value={user.email}
             onChange={handleChange}
-            className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-pink-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
 
@@ -124,18 +127,35 @@ function Login() {
             placeholder="Enter Password"
             value={user.password}
             onChange={handleChange}
-            className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-pink-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-pink-500"
             required
           />
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:scale-105 transition duration-300 shadow-lg"
           >
+
             Login
+
           </button>
 
         </form>
+
+        <p className="text-center mt-6 text-gray-600">
+
+          Don't have an account?{" "}
+
+          <Link
+            to="/register"
+            className="text-pink-600 font-semibold hover:underline"
+          >
+
+            Register
+
+          </Link>
+
+        </p>
 
       </div>
 
@@ -144,9 +164,5 @@ function Login() {
   );
 
 }
-
-// =======================================================
-// SECTION 7 : EXPORT
-// =======================================================
 
 export default Login;

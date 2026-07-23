@@ -58,7 +58,7 @@ function Dashboard() {
 
   return (
 
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 p-8">
 
       {/* ===================================================
           SECTION 6 : WELCOME
@@ -69,6 +69,9 @@ function Dashboard() {
         <h1 className="text-4xl font-bold">
 
           Welcome, {user?.name} 👋
+          <p className="mt-2 text-pink-100 text-lg">
+  Ready to explore today's campus opportunities? 🚀
+</p>
 
         </h1>
 
@@ -86,7 +89,7 @@ function Dashboard() {
 
       <div className="grid md:grid-cols-3 gap-8 mt-10">
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
 
           <h2 className="text-5xl mb-3">
             🎟
@@ -96,7 +99,7 @@ function Dashboard() {
             Registered Events
           </h3>
 
-          <p className="text-4xl font-bold text-blue-600 mt-3">
+          <p className="text-4xl font-bold text-pink-600 mt-3">
 
             {stats.registeredEvents}
 
@@ -148,7 +151,7 @@ function Dashboard() {
 
       <div className="mt-12">
 
-        <h2 className="text-3xl font-bold mb-6">
+        <h2 className="text-3xl font-bold text-pink-600 mb-6">
 
           Quick Actions
 
@@ -158,7 +161,7 @@ function Dashboard() {
 
           <Link
             to="/events"
-            className="bg-blue-600 text-white p-8 rounded-2xl shadow-lg hover:bg-blue-700 transition"
+            className="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-8 rounded-2xl shadow-xl hover:scale-105 transition duration-300"
           >
 
             <h2 className="text-2xl font-bold">
@@ -177,7 +180,7 @@ function Dashboard() {
 
           <Link
             to="/my-registrations"
-            className="bg-green-600 text-white p-8 rounded-2xl shadow-lg hover:bg-green-700 transition"
+            className="bg-gradient-to-r from-pink-400 to-pink-600 text-white p-8 rounded-2xl shadow-xl hover:scale-105 transition duration-300"
           >
 
             <h2 className="text-2xl font-bold">
