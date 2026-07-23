@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api/auth";
+const BASE_URL = "https://campusconnect-backend-3hba.onrender.com/api/auth";
 
 export async function loginUser(userData) {
   const response = await fetch(`${BASE_URL}/login`, {

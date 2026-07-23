@@ -49,7 +49,7 @@ function EditEvent() {
 
         const response = await fetch(
 
-          `http://localhost:5000/api/events/${id}`
+          `https://campusconnect-backend-3hba.onrender.com/api/events/${id}`
 
         );
 
@@ -74,7 +74,7 @@ function EditEvent() {
 
           setPreview(
 
-            `http://localhost:5000/uploads/${data.image}`
+            `https://campusconnect-backend-3hba.onrender.com/uploads/${data.image}`
 
           );
 
@@ -159,7 +159,7 @@ function EditEvent() {
 
       const response = await fetch(
 
-        `http://localhost:5000/api/events/update/${id}`,
+        `https://campusconnect-backend-3hba.onrender.com/api/events/update/${id}`,
 
         {
 

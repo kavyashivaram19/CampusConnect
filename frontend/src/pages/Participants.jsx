@@ -21,7 +21,7 @@ function Participants() {
         async function loadParticipants() {
 
             const response = await fetch(
-                `http://localhost:5000/api/registrations/participants/${eventId}`
+                `https://campusconnect-backend-3hba.onrender.com/api/registrations/participants/${eventId}`
             );
 
             const data = await response.json();

@@ -43,7 +43,7 @@ const totalSeatsLeft = events.reduce(
         if (!user?.id) return;
 
         const response = await fetch(
-          `http://localhost:5000/api/registrations/coordinator/${user.id}`
+          `https://campusconnect-backend-3hba.onrender.com/api/registrations/coordinator/${user.id}`
         );
 
         const data = await response.json();
@@ -69,7 +69,7 @@ const totalSeatsLeft = events.reduce(
 
     const response = await fetch(
 
-      `http://localhost:5000/api/events/delete/${id}`,
+      `https://campusconnect-backend-3hba.onrender.com/api/events/delete/${id}`,
 
       {
         method: "DELETE"
@@ -231,7 +231,7 @@ const totalSeatsLeft = events.reduce(
             <img
               src={
                 event.image
-                  ? `http://localhost:5000/uploads/${event.image}`
+                  ? `https://campusconnect-backend-3hba.onrender.com/uploads/${event.image}`
                   : "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200"
               }
               alt={event.title}

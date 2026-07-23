@@ -12,39 +12,23 @@ function EventCard({ event }) {
 
   return (
 
-    <Link to={`/events/${event._id}`}>
+    <Link
+      to={`/events/${event._id}`}
+    >
 
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
 
         {/* ===================================================
             SECTION 3 : EVENT IMAGE
         =================================================== */}
 
-        <div className="relative">
-
-          <img
-            src={
-              event.image
-                ? `http://localhost:5000/uploads/${event.image}`
-                : "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
-            }
-            alt={event.title}
-            className="w-full h-56 object-cover"
-          />
-
-          <span className="absolute top-4 left-4 bg-pink-600 text-white px-4 py-1 rounded-full text-sm shadow">
-
-            {event.category}
-
-          </span>
-
-          <span className="absolute top-4 right-4 bg-green-600 text-white px-4 py-1 rounded-full text-sm shadow">
-
-            ₹{event.registrationFee}
-
-          </span>
-
-        </div>
+        <img
+          src={
+  event.image
+    ? `https://campusconnect-backend-3hba.onrender.com/uploads/${event.image}`
+    : "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800"
+}
+        />
 
         {/* ===================================================
             SECTION 4 : EVENT DETAILS
@@ -52,46 +36,32 @@ function EventCard({ event }) {
 
         <div className="p-6">
 
-          <h2 className="text-2xl font-bold text-gray-800 line-clamp-1">
-
+          <h2 className="text-2xl font-bold">
             {event.title}
-
           </h2>
 
-          <p className="text-gray-500 mt-3 line-clamp-3">
-
+          <p className="text-gray-600 mt-3">
             {event.description}
-
           </p>
 
-          {/* ===================================================
-              EVENT INFO
-          =================================================== */}
+          <div className="mt-5 space-y-2 text-gray-700">
 
-          <div className="flex flex-wrap gap-2 mt-5">
+            <p>📅 {event.date}</p>
 
-            <span className="bg-blue-100 text-blue-700 px-3 py-2 rounded-full text-sm">
+            <p>📍 {event.venue}</p>
 
-              📅 {event.date}
-
-            </span>
-
-            <span className="bg-orange-100 text-orange-700 px-3 py-2 rounded-full text-sm">
-
-              📍 {event.venue}
-
+            <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+              {event.category}
             </span>
 
           </div>
 
           {/* ===================================================
-              REGISTER BUTTON
+              SECTION 5 : REGISTER BUTTON
           =================================================== */}
 
-          <button className="w-full mt-6 bg-gradient-to-r from-pink-600 to-purple-600 text-white py-3 rounded-xl hover:scale-105 transition">
-
-            View Details →
-
+          <button className="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition">
+            Register Now
           </button>
 
         </div>

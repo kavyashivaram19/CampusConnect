@@ -82,7 +82,7 @@ const handleSubmit = async (e) => {
   }
 
   const response = await fetch(
-    "http://localhost:5000/api/events/create",
+    "https://campusconnect-backend-3hba.onrender.com/api/events/create",
     {
       method: "POST",
       body: formData,

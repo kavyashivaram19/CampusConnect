@@ -23,7 +23,7 @@ const { event, user } = location.state;
 
       const response = await fetch(
 
-        "http://localhost:5000/api/registrations/register",
+        "https://campusconnect-backend-3hba.onrender.com/api/registrations/register",
 
         {
 

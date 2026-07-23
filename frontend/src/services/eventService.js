@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000/api/events";
+const BASE_URL = "https://campusconnect-backend-3hba.onrender.com/api/events";
 
 export async function getAllEvents() {
   const response = await fetch(BASE_URL);
@@ -22,7 +22,7 @@ export async function getEventById(id) {
 export async function registerForEvent(userId, eventId) {
 
   const response = await fetch(
-    "http://localhost:5000/api/registrations/register",
+    "https://campusconnect-backend-3hba.onrender.com/api/registrations/register",
     {
       method: "POST",
       headers: {
@@ -49,7 +49,7 @@ export async function registerForEvent(userId, eventId) {
 export async function getMyRegistrations(userId) {
 
   const response = await fetch(
-    `http://localhost:5000/api/registrations/user/${userId}`
+    `https://campusconnect-backend-3hba.onrender.com/api/registrations/user/${userId}`
   );
 
   if (!response.ok) {
@@ -66,7 +66,7 @@ export async function getMyRegistrations(userId) {
 export async function getDashboardStats(userId) {
 
   const response = await fetch(
-    `http://localhost:5000/api/registrations/stats/${userId}`
+    `https://campusconnect-backend-3hba.onrender.com/api/registrations/stats/${userId}`
   );
 
   if (!response.ok) {
@@ -79,7 +79,7 @@ export async function getDashboardStats(userId) {
 export async function getCoordinatorDashboard(coordinatorId) {
 
   const response = await fetch(
-    `http://localhost:5000/api/registrations/coordinator/${coordinatorId}`
+    `https://campusconnect-backend-3hba.onrender.com/api/registrations/coordinator/${coordinatorId}`
   );
 
   if (!response.ok) {

@@ -12,8 +12,6 @@ function AdminDashboard() {
 
   const [stats, setStats] = useState(null);
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   useEffect(() => {
 
     async function loadDashboard() {
@@ -21,7 +19,7 @@ function AdminDashboard() {
       try {
 
         const response = await fetch(
-          "http://localhost:5000/api/admin/dashboard"
+          "https://campusconnect-backend-3hba.onrender.com/api/admin/dashboard"
         );
 
         const data = await response.json();
@@ -46,13 +44,9 @@ function AdminDashboard() {
 
     return (
 
-      <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-pink-50 via-white to-purple-50">
+      <div className="text-center mt-20 text-2xl">
 
-        <h2 className="text-3xl font-bold text-pink-600">
-
-          Loading Dashboard...
-
-        </h2>
+        Loading Dashboard...
 
       </div>
 
@@ -62,41 +56,19 @@ function AdminDashboard() {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 p-10">
+    <div className="min-h-screen bg-pink-50 p-10">
 
-      {/* =======================================================
-          WELCOME CARD
-      ======================================================= */}
+      <h1 className="text-4xl font-bold text-center mb-10">
 
-      <div className="bg-gradient-to-r from-pink-500 via-pink-500 to-purple-600 rounded-3xl text-white p-10 shadow-2xl mb-10">
+        👨‍💼 Admin Dashboard
 
-        <h1 className="text-4xl font-bold">
-
-          👑 Welcome, {user?.name}
-
-        </h1>
-
-        <p className="mt-3 text-lg text-pink-100">
-
-          Monitor users, events, registrations and platform analytics.
-
-        </p>
-
-      </div>
-
-      {/* =======================================================
-          STATISTICS
-      ======================================================= */}
+      </h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-3xl shadow-lg p-8">
 
-          <h2 className="text-2xl font-bold">
-
-            👥 Users
-
-          </h2>
+          <h2 className="text-2xl font-bold">👥 Users</h2>
 
           <p className="text-5xl mt-5 font-bold text-pink-600">
 
@@ -106,15 +78,11 @@ function AdminDashboard() {
 
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-3xl shadow-lg p-8">
 
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold">🎉 Events</h2>
 
-            🎉 Events
-
-          </h2>
-
-          <p className="text-5xl mt-5 font-bold text-purple-600">
+          <p className="text-5xl mt-5 font-bold text-blue-600">
 
             {stats.totalEvents}
 
@@ -122,15 +90,11 @@ function AdminDashboard() {
 
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-3xl shadow-lg p-8">
 
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold">📝 Registrations</h2>
 
-            📝 Registrations
-
-          </h2>
-
-          <p className="text-5xl mt-5 font-bold text-pink-500">
+          <p className="text-5xl mt-5 font-bold text-green-600">
 
             {stats.totalRegistrations}
 
@@ -138,15 +102,11 @@ function AdminDashboard() {
 
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-3xl shadow-lg p-8">
 
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold">💰 Revenue</h2>
 
-            💰 Revenue
-
-          </h2>
-
-          <p className="text-5xl mt-5 font-bold text-purple-500">
+          <p className="text-5xl mt-5 font-bold text-yellow-600">
 
             ₹{stats.totalRevenue}
 
@@ -154,7 +114,7 @@ function AdminDashboard() {
 
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-3xl shadow-lg p-8">
 
           <h2 className="text-2xl font-bold">
 
@@ -162,7 +122,7 @@ function AdminDashboard() {
 
           </h2>
 
-          <p className="text-5xl mt-5 font-bold text-pink-600">
+          <p className="text-5xl mt-5 font-bold text-green-700">
 
             {stats.attendanceMarked}
 
@@ -170,7 +130,7 @@ function AdminDashboard() {
 
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 text-center hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+        <div className="bg-white rounded-3xl shadow-lg p-8">
 
           <h2 className="text-2xl font-bold">
 
@@ -178,7 +138,7 @@ function AdminDashboard() {
 
           </h2>
 
-          <p className="text-5xl mt-5 font-bold text-red-500">
+          <p className="text-5xl mt-5 font-bold text-red-600">
 
             {stats.pendingAttendance}
 

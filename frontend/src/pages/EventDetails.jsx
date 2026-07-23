@@ -46,7 +46,7 @@ if (user) {
 
   const response = await fetch(
 
-    `http://localhost:5000/api/registrations/user/${user.id}`
+    `https://campusconnect-backend-3hba.onrender.com/api/registrations/user/${user.id}`
 
   );
 
@@ -64,7 +64,7 @@ if (user) {
 
 const response = await fetch(
 
-  `http://localhost:5000/api/registrations/participants/${data._id}`
+  `https://campusconnect-backend-3hba.onrender.com/api/registrations/participants/${data._id}`
 
 );
 
@@ -138,7 +138,7 @@ if (
 
     const response = await fetch(
 
-      `http://localhost:5000/api/events/${id}`,
+      `https://campusconnect-backend-3hba.onrender.com/api/events/${id}`,
 
       {
 
@@ -222,7 +222,7 @@ if (
         <img
   src={
     event.image
-      ? `http://localhost:5000/uploads/${event.image}`
+      ? `https://campusconnect-backend-3hba.onrender.com/uploads/${event.image}`
       : "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200"
   }
   alt={event.title}
